@@ -83,36 +83,10 @@ for (data, target) in tqdm((test_loader)):
 
 print('Test Accuracy: ', (correct / total))
 
-# print(test_data)
-# print(pred_cm)
-# a = torch.tensor(test_data.targets)
-# b = pred_cm.cpu().argmax(dim=1)
-# print(a)
-# print(b)
 cm = confusion_matrix(torch.tensor(test_data.targets), pred_cm.cpu())
 print(type(cm))
 
 classes = os.listdir(r'D:\Dataset\computer_vision\project2\train')
-# classes = ('abraham_grampa_simpson',
-#            'apu_nahasapeemapetilon',
-#            'bart_simpson',
-#            'charles_montgomery_burns',
-#            'chief_wiggum',
-#            'comic_book_guy',
-#            'edna_krabappel',
-#            'homer_simpson',
-#            'kent_brockman',
-#            'krusty_the_clown',
-#            'lenny_leonard',
-#            'lisa_simpson',
-#            'marge_simpson',
-#            'mayor_quimby',
-#            'milhouse_van_houten',
-#            'moe_szyslak',
-#            'ned_flanders',
-#            'nelson_muntz',
-#            'principal_skinner',
-#            'sideshow_bob')
 
 # 繪製混淆矩陣
 plt.figure(figsize=(2, 2))
