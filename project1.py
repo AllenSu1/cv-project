@@ -2,9 +2,9 @@ import os
 import cv2
 import time
 
-img_before = r'D:\Dataset\computer_vision\good_before'
-img_after = r'D:\Dataset\computer_vision\good_after'
-img_groundtruth = r'D:\Dataset\computer_vision\groundtruth'
+img_before = r'D:\Dataset\computer_vision\project1\good_before'
+img_after = r'D:\Dataset\computer_vision\project1\good_after'
+img_groundtruth = r'D:\Dataset\computer_vision\project1\groundtruth'
 
 def rgb2gray_resize(img):
     img = cv2.bilateralFilter(img,20,60,60) #雙邊濾波
@@ -31,7 +31,7 @@ for i in range(7):
     area = 0
     #計算執行時間
     start=time.time()
-    print(('----------img' + str(i+1) + '----------'))
+
     #轉灰階 + resize
     img_1r = rgb2gray_resize(img_1)
     img_2r = rgb2gray_resize(img_2)
@@ -40,8 +40,6 @@ for i in range(7):
     img_sub = cv2.subtract(img_2r, img_1r)
     img_sub = cv2.GaussianBlur(img_sub,(3,3),0)
     ret,img_sub = cv2.threshold(img_sub,40,255,cv2.THRESH_BINARY)
-    cv2.imshow('img_sub',img_sub)
-    cv2.waitKey(0)
 
     #處理groundtruth
     img_3r = rgb2gray_resize(img_3)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
@@ -57,14 +55,11 @@ for i in range(7):
     # print('or面積 = ',or1)
 
     #iou = and1/or1
-    print('iou = %.4f' %(and1/or1))
     end=time.time()
-    print('執行時間：%.2f ' %(end-start))
+    print('img%2d：   iou = %.4f   執行時間：%.2f' %((i+1),(and1/or1),(end-start)))
     total_iou += (and1/or1)
     total_time +=  (end-start)
     # cv2.waitKey(0)
 
-print('----------result----------')
-print('平均iou = %.4f '  %(total_iou/7))
-print('平均執行時間 = %.2f '  %(total_time/7))
+print('result：   平均iou = %.4f   平均執行時間 = %.2f'  %((total_iou/7),(total_time/7)))
 cv2.waitKey(0)
